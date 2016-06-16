@@ -3,6 +3,8 @@ package com.xuxg.spring.boot.mybatis.domain;
 import java.io.Serializable;
 import java.util.Date;
 
+import io.vertx.core.json.JsonObject;
+
 public class TbIDAuth implements Serializable {
 
 	private static final long serialVersionUID = 3946800615894295220L;
@@ -122,6 +124,11 @@ public class TbIDAuth implements Serializable {
 				"TbIDAuth [id=%s, serial_number=%s, phone_number=%s, certNo=%s, order_id=%s, type=%s, channel=%s, create_time=%s, status=%s, request=%s, response=%s, update_time=%s]",
 				id, serial_number, phone_number, certNo, order_id, type, channel, create_time, status, request,
 				response, update_time);
+	}
+
+	public JsonObject toJsonObject() {
+		return new JsonObject().put("id", id).put("serial_number", serial_number).put("phone_number", phone_number)
+				.put("certNo", certNo).put("order_id", order_id);
 	}
 
 }
