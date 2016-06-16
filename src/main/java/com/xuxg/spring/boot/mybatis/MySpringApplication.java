@@ -6,6 +6,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.xuxg.spring.boot.mybatis.mapper.TbIDAuthMapper;
+import com.xuxg.spring.boot.mybatis.vertx.MyVerticle;
+
+import io.vertx.core.Vertx;
 
 @SpringBootApplication
 public class MySpringApplication implements CommandLineRunner {
@@ -13,11 +16,16 @@ public class MySpringApplication implements CommandLineRunner {
 	@Autowired
 	private TbIDAuthMapper tbIDAuthMapper;
 
+	@Autowired
+	private MyVerticle verticle;
+
 	public static void main(String[] args) {
 		SpringApplication.run(MySpringApplication.class, args);
 	}
 
 	public void run(String... args) throws Exception {
 		System.out.println(this.tbIDAuthMapper.selectById(1));
+
+		Vertx.vertx().deployVerticle(verticle);
 	}
 }
