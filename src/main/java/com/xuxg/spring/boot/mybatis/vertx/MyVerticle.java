@@ -23,24 +23,21 @@ public class MyVerticle extends AbstractVerticle {
 		HttpServer server = vertx.createHttpServer();
 
 		Router router = Router.router(vertx);
-
-		router.route("/hello").blockingHandler(req -> {
-
+		router.route("/test").blockingHandler(req -> {
 			TbIDAuth idAuth = tbIDAuthMapper.selectById(1);
-
 			vertx.eventBus().send("OK-TbIdAuth", idAuth.toJsonObject(), reply -> {
 				String code = (String) reply.result().body();
 				if ("100".equals(code)) {
-					System.out.println("对应已处理成功！");
+					System.out.println(code);
 				} else {
-					System.out.println("对应已处理失败！");
+					System.out.println("400");
 				}
 			});
 			HttpServerResponse response = req.response();
 			response.putHeader("content-type", "text/html").end(idAuth.toString());
 		});
 
-		server.requestHandler(router::accept).listen(8080);
+		server.requestHandler(router::accept).listen(8088);
 	}
 
 }
